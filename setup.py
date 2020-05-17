@@ -1,14 +1,16 @@
+#!/usr/bin/env python3
 import setuptools
+
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setup(
-    name="example-pkg-craig-w-warner", # Replace with your own username
+setuptools.setup(
+    name="pymandelbrot-craig-w-warner", #
     version="1.0.0",
     author="Craig Warner",
     author_email="cgwarner2012@gmail.com",
-    description="Mandelbrot Drawer"
+    description="Mandelbrot Drawer",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/craig-warner/pymandelbrot",
