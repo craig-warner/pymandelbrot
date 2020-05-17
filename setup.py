@@ -3,7 +3,7 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+setup(
     name="example-pkg-craig-w-warner", # Replace with your own username
     version="1.0.0",
     author="Craig Warner",
@@ -19,4 +19,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
+    scripts=['bin/pymandelbrot'],
 )
