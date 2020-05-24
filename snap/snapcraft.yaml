@@ -1,0 +1,21 @@
+name: pymandelbrot
+version: '1.0'
+summary: Mandelbrot Drawer
+description: |
+  Mandelbrot drawer draws the Mandelbrot set for you 
+confinement: devmode
+base: core18
+
+grade: stable
+
+parts:
+  pymandelbrot:
+    plugin: python
+    python-version: python3
+    source: https://github.com/craig-warner/pymandelbrot.git
+    stage-packages:
+    - python-six
+
+apps:
+  pymandelbrot:
+    command: bin/pymandelbrot
