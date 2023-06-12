@@ -2,20 +2,29 @@ name: pymandelbrot
 version: '1.0'
 summary: Mandelbrot Drawer
 description: |
-  Mandelbrot drawer draws the Mandelbrot set for you 
-confinement: devmode
+  Mandelbrot drawer draws the Mandelbrot set for you.
+confinement: strict 
 base: core18
-
 grade: stable
+icon: ${SNAP}/meta/gui/pymandelbrot.png
 
 parts:
   pymandelbrot:
     plugin: python
     python-version: python3
+    source-branch: master 
     source: https://github.com/craig-warner/pymandelbrot.git
-    stage-packages:
-    - python-six
+    python-packages: [tk] 
+    stage-packages: [python3-tk, python-six]
+
+layout:
+  /usr/share/tcltk:
+    bind: $SNAP/usr/share/tcltk
+  /usr/lib/tcltk:
+    bind: $SNAP/usr/lib/tcltk
 
 apps:
   pymandelbrot:
     command: bin/pymandelbrot
+    plugs: ['desktop', 'framebuffer', 'camera', 'network', 'home', 'opengl', 'x11']
+#    desktop: 'share/applications/pymandelbrot.desktop'
