@@ -6,7 +6,7 @@ description: |
 confinement: strict 
 base: core18
 grade: stable
-icon: ${SNAP}/meta/gui/pymandelbrot.png
+#icon: ${SNAP}/meta/gui/pymandelbrot.png
 
 parts:
   pymandelbrot:
