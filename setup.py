@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pymandelbrot-craig-w-warner", #
+    name="pymandelbrot", 
     version="1.0.0",
     author="Craig Warner",
     author_email="cgwarner2012@gmail.com",

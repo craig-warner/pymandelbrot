@@ -8,8 +8,6 @@ Name=pymandelbrot
 # A comment which can/will be used as a tooltip
 Comment=Application for draing the Mandelbrot set
 # The path to the folder in which the executable is run
-Path=/snap/pymandelbrot/bin/
-# The executable of the application, possibly with arguments.
 Exec=pymandelbrot
 # The name of the icon that will be used to display this entry
 Icon=${SNAP}/meta/gui/pymandelbrot.png

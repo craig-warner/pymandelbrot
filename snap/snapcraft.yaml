@@ -1,12 +1,12 @@
 name: pymandelbrot
-version: '1.2'
+version: '1.3'
 summary: Mandelbrot Drawer
 description: |
   Mandelbrot drawer draws the Mandelbrot set for you.
 confinement: strict 
 base: core18
 grade: stable
-#icon: ${SNAP}/meta/gui/pymandelbrot.png
+icon: snap/gui/pymandelbrot.png
 
 parts:
   pymandelbrot:
@@ -29,16 +29,16 @@ layout:
   /usr/lib/tcltk:
     bind: $SNAP/usr/lib/tcltk
 
-#apps:
-#  pymandelbrot:
-#    command: bin/pymandelbrot
-#    plugs: ['desktop', 'framebuffer', 'camera', 'network', 'home', 'opengl', 'x11']
-
 apps:
   pymandelbrot:
-    command: pymandelbrot
+    command: bin/python3 $SNAP/bin/pymandelbrot
+    plugs: ['desktop', 'framebuffer', 'camera', 'network', 'home', 'opengl', 'x11']
+
+#apps:
+#  pymandelbrot:
+#    command: pymandelbrot
 #    command: desktop-launch $SNAP/usr/bin/com.github.craig-warner.pymandelbrot
-    desktop: snap/gui/pymandelbrot.desktop
-    plugs:
-      - desktop
-      - desktop-legacy
+#    desktop: snap/gui/pymandelbrot.desktop
+#    plugs:
+#      - desktop
+#      - desktop-legacy
