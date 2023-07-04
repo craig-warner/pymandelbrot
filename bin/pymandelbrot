@@ -108,7 +108,7 @@ class MandelApp(tk.Tk):
     sys.exit(0)
 
   def DrawCanvas(self):
-    for dotLog2 in range(5,1,-1):
+    for dotLog2 in range(5,-1,-1):
       dot = 2**dotLog2
       for x in range(0,(512>>dotLog2)):
         for y in range(0,(512>>dotLog2)):
@@ -121,7 +121,7 @@ class MandelApp(tk.Tk):
           self.MyCanvas.create_rectangle(x*dot,y*dot,x1,y1, outline=colorStr, fill=colorStr)
           self.MyCanvas.pack()
           self.MyCanvas.update()
-          sleep(0.05)
+          sleep(0.01)
 
 if __name__ == "__main__":
   app = MandelApp()
