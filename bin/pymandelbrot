@@ -33,36 +33,44 @@ class MandelCalc:
   def GetDi(self,yDot):
     di = self.DiperDot*yDot + self.MinDi
     return di
-  def Inter2Color(self,numBits,i):
-    if numBits == 4:
-      str = "#%03x" % (i&0xfff)
-      return str
-    elif numBits == 8:
-      str = "#%06x" % (i&0xffffff)
-      return str
-    elif numBits == 12:
-      str = "#%09x" & (i&0xfffffffff)
-      return str
-    else:
-      print ("Error 1")
-      raise Exception("Not a Valid Color Width")
+  def Inter2Color(self,numBits,colorShift,i):
+    if colorShift== 4:
+      if numBits == 4:
+        c1 = (i&0x00f) <<colorShift
+        c2 = ((i&0x0f0)>>4) <<colorShift
+        c3 = ((i&0xf00)>>8) <<colorShift
+        all_colors = (c3<<16) | (c2<<8) | c1
+        str = "#%06x" % all_colors
+        return str
+#    if numBits == 4:
+#      str = "#%03x" % (i&0xfff)
+#      return str
+#    elif numBits == 8:
+#      str = "#%06x" % (i&0xffffff)
+#      return str
+#    elif numBits == 12:
+#      str = "#%09x" & (i&0xfffffffff)
+#      return str
+#    else:
+#      print ("Error 1")
+#      raise Exception("Not a Valid Color Width")
 
-  def ColorDot(self,numBits,x,y):
+  def ColorDot(self,numBits,colorShift,x,y):
     a = self.GetA(x)
     di = self.GetDi(y)
     numIters = 1<<(numBits*3)
     colorI = self.GetColor(a,di,numIters)
-    colorStr = self.Inter2Color(numBits,colorI)
+    colorStr = self.Inter2Color(numBits,colorShift,colorI)
     return(colorStr)
 
 class MandelApp(tk.Tk):
   def __init__(self):
     tk.Tk.__init__(self)
-    self.MyCanvas = tk.Canvas(self,bg="black", height=400,width=400)
+    self.MyCanvas = tk.Canvas(self,bg="black", height=512,width=512)
     self.MyCanvas.pack(expand = False)
     self.MyMandelCalc = MandelCalc()
     # def SetRange(self,MinX,MinY,MaxX,MaxY,XDots,YDots):
-    self.MyMandelCalc.SetRange(-1.0,-1.5,2.0,1.5,400,400)
+    self.MyMandelCalc.SetRange(-1.0,-1.5,2.0,1.5,512,512)
     self._create_menubar()
     self.text = tk.Text(height=3,width=40)
     self.text.pack(side="top", fill="both",  expand = False)
@@ -100,15 +108,20 @@ class MandelApp(tk.Tk):
     sys.exit(0)
 
   def DrawCanvas(self):
-    for x in range(0,40):
-      for y in range(0,40):
-        x1 = x*10 + 10
-        y1 = y*10 + 10
-        colorStr = self.MyMandelCalc.ColorDot(4,x1,y1)
-        self.MyCanvas.create_rectangle(x*10,y*10,x1,y1,fill=colorStr)
-        self.MyCanvas.pack()
-        self.MyCanvas.update()
-        sleep(0.25)
+    for dotLog2 in range(5,1,-1):
+      dot = 2**dotLog2
+      for x in range(0,(512>>dotLog2)):
+        for y in range(0,(512>>dotLog2)):
+          x1 = x*dot + dot
+          y1 = y*dot + dot 
+          colorStr = self.MyMandelCalc.ColorDot(4,4,x1,y1)
+#          self.MyCanvas.create_rectangle(x*dot,y*dot,x1,y1,fill=colorStr)
+#          self.MyCanvas.create_rectangle(x*dot,y*dot,x1,y1,fill=colorStr,disabledoutline=True)
+#          self.MyCanvas.create_rectangle(x*dot,y*dot,x1,y1, disabledoutline=True, fill=colorStr)
+          self.MyCanvas.create_rectangle(x*dot,y*dot,x1,y1, outline=colorStr, fill=colorStr)
+          self.MyCanvas.pack()
+          self.MyCanvas.update()
+          sleep(0.05)
 
 if __name__ == "__main__":
   app = MandelApp()

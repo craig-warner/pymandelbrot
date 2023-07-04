@@ -1,5 +1,5 @@
 name: pymandelbrot
-version: '1.3'
+version: '1.4'
 summary: Mandelbrot Drawer
 description: |
   Mandelbrot drawer draws the Mandelbrot set for you.
